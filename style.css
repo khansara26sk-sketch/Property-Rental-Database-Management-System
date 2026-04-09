@@ -638,35 +638,124 @@ select {
   .main,
   .auth-left,
   .auth-right {
-    padding: 18px;
+    padding: 16px;
   }
 
   .page-title,
   .auth-title {
-    font-size: 2.2rem;
+    font-size: 2rem;
+    line-height: 1.15;
   }
 
   .topbar {
     flex-direction: column;
     align-items: stretch;
+    gap: 14px;
   }
 
   .topbar-actions {
     width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
   }
 
-  .search-box {
+  .search-box,
+  .btn,
+  .input,
+  .select {
+    width: 100%;
     min-width: 100%;
   }
 
   .stats-grid,
   .form-grid,
   .auth-highlights,
-  .hero-card-grid {
+  .hero-card-grid,
+  .layout-2 {
     grid-template-columns: 1fr;
   }
 
   .sidebar {
     display: none;
+  }
+
+  .app-shell {
+    display: block;
+  }
+
+  .main {
+    width: 100%;
+  }
+
+  .panel,
+  .card,
+  .hero-card,
+  .auth-panel {
+    border-radius: 18px;
+    padding: 18px;
+  }
+
+  .panel-header,
+  .auth-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 14px;
+  }
+
+  .table {
+    min-width: 700px;
+  }
+
+  .chart-bars {
+    height: 220px;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 520px) {
+  .auth-page {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-left {
+    padding-bottom: 8px;
+  }
+
+  .auth-title {
+    font-size: 1.7rem;
+  }
+
+  .auth-copy,
+  .page-subtitle,
+  .muted {
+    font-size: 0.95rem;
+  }
+
+  .brand-badge {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+  }
+
+  .stat-value {
+    font-size: 1.6rem;
+  }
+
+  .stat-icon {
+    width: 46px;
+    height: 46px;
+  }
+
+  .panel-title {
+    font-size: 1rem;
+  }
+
+  .table {
+    min-width: 620px;
   }
 }
