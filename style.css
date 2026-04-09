@@ -158,6 +158,108 @@ select {
   padding: 28px;
 }
 
+.mobile-topbar {
+  display: none;
+  position: sticky;
+  top: 0;
+  z-index: 1200;
+  padding: 14px 16px;
+  backdrop-filter: blur(18px);
+  background: rgba(16, 10, 13, 0.9);
+  border-bottom: 1px solid var(--border);
+}
+
+.mobile-topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.mobile-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mobile-brand-text strong {
+  display: block;
+  font-size: 0.98rem;
+}
+
+.mobile-brand-text span {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.mobile-menu-btn {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.06);
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  left: -320px;
+  width: 290px;
+  height: 100vh;
+  padding: 22px 18px;
+  background: rgba(19, 12, 16, 0.97);
+  backdrop-filter: blur(18px);
+  border-right: 1px solid var(--border);
+  z-index: 1300;
+  transition: left 0.28s ease;
+  overflow-y: auto;
+}
+
+.mobile-drawer.open {
+  left: 0;
+}
+
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.25s ease;
+  z-index: 1250;
+}
+
+.mobile-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-drawer .sidebar-nav {
+  margin-top: 18px;
+}
+
+.mobile-close-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.mobile-close-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.06);
+  color: var(--text);
+  cursor: pointer;
+}
+
 .topbar {
   display: flex;
   align-items: center;
@@ -635,6 +737,10 @@ select {
 }
 
 @media (max-width: 760px) {
+  .mobile-topbar {
+    display: block;
+  }
+
   .main,
   .auth-left,
   .auth-right {

@@ -11,6 +11,42 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="mobile-topbar">
+    <div class="mobile-topbar-inner">
+      <div class="mobile-brand">
+        <div class="brand-badge">PR</div>
+        <div class="mobile-brand-text">
+          <strong>Property Rental</strong>
+          <span>Management Suite</span>
+        </div>
+      </div>
+      <button class="mobile-menu-btn" type="button" onclick="toggleMobileMenu()">☰</button>
+    </div>
+  </div>
+
+  <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+
+  <aside class="mobile-drawer" id="mobileDrawer">
+    <div class="mobile-close-row">
+      <button class="mobile-close-btn" type="button" onclick="closeMobileMenu()">✕</button>
+    </div>
+    <div class="brand">
+      <div class="brand-badge">PR</div>
+      <div>
+        <h2>Property Rental</h2>
+        <p>Management Suite</p>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="nav-link" href="dashboard.html"><span class="nav-icon">📊</span><span class="nav-text">Dashboard</span></a>
+      <a class="nav-link" href="owners.html"><span class="nav-icon">👤</span><span class="nav-text">Owners</span></a>
+      <a class="nav-link" href="properties.html"><span class="nav-icon">🏠</span><span class="nav-text">Properties</span></a>
+      <a class="nav-link" href="renters.html"><span class="nav-icon">🧾</span><span class="nav-text">Renters</span></a>
+      <a class="nav-link" href="agreements.html"><span class="nav-icon">📑</span><span class="nav-text">Agreements</span></a>
+    </nav>
+  </aside>
+
   <div class="app-shell">
     <aside class="sidebar">
       <div class="brand">
@@ -157,5 +193,17 @@
       </section>
     </main>
   </div>
+
+  <script>
+    function toggleMobileMenu() {
+      document.getElementById('mobileDrawer').classList.toggle('open');
+      document.getElementById('mobileOverlay').classList.toggle('show');
+    }
+
+    function closeMobileMenu() {
+      document.getElementById('mobileDrawer').classList.remove('open');
+      document.getElementById('mobileOverlay').classList.remove('show');
+    }
+  </script>
 </body>
 </html>
