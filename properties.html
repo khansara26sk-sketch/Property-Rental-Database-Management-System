@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Properties | Property Rental System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-badge">PR</div>
+        <div><h2>Property Rental</h2><p>Management Suite</p></div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a class="nav-link" href="dashboard.html"><span class="nav-icon">📊</span><span class="nav-text">Dashboard</span></a>
+        <a class="nav-link" href="owners.html"><span class="nav-icon">👤</span><span class="nav-text">Owners</span></a>
+        <a class="nav-link active" href="properties.html"><span class="nav-icon">🏠</span><span class="nav-text">Properties</span></a>
+        <a class="nav-link" href="renters.html"><span class="nav-icon">🧾</span><span class="nav-text">Renters</span></a>
+        <a class="nav-link" href="agreements.html"><span class="nav-icon">📑</span><span class="nav-text">Agreements</span></a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <div>
+          <h1 class="page-title">Property Management</h1>
+          <p class="page-subtitle">Track property type, owner, branch responsibility, and staff oversight.</p>
+        </div>
+
+        <div class="topbar-actions">
+          <input class="search-box" type="text" placeholder="Search property by ID, city or type">
+          <button class="btn btn-primary">+ Add Property</button>
+        </div>
+      </div>
+
+      <div class="content-grid">
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Add Property</div>
+              <div class="page-subtitle">Enter property details and link branch + staff</div>
+            </div>
+          </div>
+
+          <form>
+            <div class="form-grid">
+              <div class="form-group"><label>Property Number</label><input class="input" type="text" placeholder="PR-101"></div>
+              <div class="form-group"><label>Property Type</label><select class="select"><option>Residential</option><option>Commercial</option></select></div>
+              <div class="form-group"><label>Owner Number</label><input class="input" type="text" placeholder="OWN-001"></div>
+              <div class="form-group"><label>Branch Number</label><input class="input" type="text" placeholder="BR-01"></div>
+              <div class="form-group"><label>Staff Number</label><input class="input" type="text" placeholder="ST-05"></div>
+              <div class="form-group"><label>Street Number</label><input class="input" type="text" placeholder="45B"></div>
+              <div class="form-group full"><label>Street Name</label><input class="input" type="text" placeholder="MG Road"></div>
+              <div class="form-group"><label>City</label><input class="input" type="text" placeholder="Jaipur"></div>
+              <div class="form-group"><label>Province</label><input class="input" type="text" placeholder="Rajasthan"></div>
+            </div>
+
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit">Save Property</button>
+              <button class="btn btn-secondary" type="reset">Reset</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Property Listing</div>
+              <div class="page-subtitle">All active and managed rental properties</div>
+            </div>
+            <span class="badge">268 Properties</span>
+          </div>
+
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Property No.</th>
+                  <th>Type</th>
+                  <th>Owner</th>
+                  <th>Branch</th>
+                  <th>Staff</th>
+                  <th>City</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>PR-101</td>
+                  <td>Residential</td>
+                  <td>OWN-001</td>
+                  <td>BR-01</td>
+                  <td>ST-05</td>
+                  <td>Jaipur</td>
+                  <td><span class="status-pill status-active">Available</span></td>
+                </tr>
+
+                <tr>
+                  <td>PR-102</td>
+                  <td>Commercial</td>
+                  <td>OWN-002</td>
+                  <td>BR-03</td>
+                  <td>ST-08</td>
+                  <td>Delhi</td>
+                  <td><span class="status-pill status-pending">Advertised</span></td>
+                </tr>
+
+                <tr>
+                  <td>PR-103</td>
+                  <td>Residential</td>
+                  <td>OWN-003</td>
+                  <td>BR-02</td>
+                  <td>ST-11</td>
+                  <td>Mumbai</td>
+                  <td><span class="status-pill status-ended">Rented</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

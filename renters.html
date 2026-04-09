@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Renters | Property Rental System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-badge">PR</div>
+        <div><h2>Property Rental</h2><p>Management Suite</p></div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a class="nav-link" href="dashboard.html"><span class="nav-icon">📊</span><span class="nav-text">Dashboard</span></a>
+        <a class="nav-link" href="owners.html"><span class="nav-icon">👤</span><span class="nav-text">Owners</span></a>
+        <a class="nav-link" href="properties.html"><span class="nav-icon">🏠</span><span class="nav-text">Properties</span></a>
+        <a class="nav-link active" href="renters.html"><span class="nav-icon">🧾</span><span class="nav-text">Renters</span></a>
+        <a class="nav-link" href="agreements.html"><span class="nav-icon">📑</span><span class="nav-text">Agreements</span></a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <div>
+          <h1 class="page-title">Renter Management</h1>
+          <p class="page-subtitle">Maintain renter profiles, branch references, and contact details.</p>
+        </div>
+
+        <div class="topbar-actions">
+          <input class="search-box" type="text" placeholder="Search renter by ID, name or email">
+          <button class="btn btn-primary">+ Add Renter</button>
+        </div>
+      </div>
+
+      <div class="content-grid">
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Add Renter</div>
+              <div class="page-subtitle">Create renter record for person or business</div>
+            </div>
+          </div>
+
+          <form>
+            <div class="form-grid">
+              <div class="form-group"><label>Renter Number</label><input class="input" type="text" placeholder="RT-201"></div>
+              <div class="form-group"><label>Renter Name</label><input class="input" type="text" placeholder="Enter renter name"></div>
+              <div class="form-group"><label>Renter Type</label><select class="select"><option>Private Person</option><option>Business</option></select></div>
+              <div class="form-group"><label>Branch Number</label><input class="input" type="text" placeholder="BR-01"></div>
+              <div class="form-group"><label>Email</label><input class="input" type="email" placeholder="renter@email.com"></div>
+              <div class="form-group"><label>Phone</label><input class="input" type="text" placeholder="+91 XXXXX XXXXX"></div>
+              <div class="form-group"><label>Street Number</label><input class="input" type="text" placeholder="17"></div>
+              <div class="form-group"><label>Street Name</label><input class="input" type="text" placeholder="Lake View Road"></div>
+              <div class="form-group"><label>City</label><input class="input" type="text" placeholder="Pune"></div>
+              <div class="form-group"><label>Province</label><input class="input" type="text" placeholder="Maharashtra"></div>
+            </div>
+
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit">Save Renter</button>
+              <button class="btn btn-secondary" type="reset">Clear</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Renter Records</div>
+              <div class="page-subtitle">Current renters and inquiry holders</div>
+            </div>
+            <span class="badge">193 Renters</span>
+          </div>
+
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Renter No.</th>
+                  <th>Name</th>
+                  <th>Type</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Branch</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>RT-201</td>
+                  <td>Aman Verma</td>
+                  <td><span class="status-pill status-active">Private</span></td>
+                  <td>aman@gmail.com</td>
+                  <td>9001112233</td>
+                  <td>BR-01</td>
+                  <td class="actions"><a class="action-link" href="#">Edit</a><a class="action-link" href="#">History</a></td>
+                </tr>
+
+                <tr>
+                  <td>RT-202</td>
+                  <td>Bright Tech Solutions</td>
+                  <td><span class="status-pill status-pending">Business</span></td>
+                  <td>admin@brighttech.com</td>
+                  <td>8899776655</td>
+                  <td>BR-03</td>
+                  <td class="actions"><a class="action-link" href="#">Edit</a><a class="action-link" href="#">History</a></td>
+                </tr>
+
+                <tr>
+                  <td>RT-203</td>
+                  <td>Sana Khan</td>
+                  <td><span class="status-pill status-active">Private</span></td>
+                  <td>sana@email.com</td>
+                  <td>9871002300</td>
+                  <td>BR-02</td>
+                  <td class="actions"><a class="action-link" href="#">Edit</a><a class="action-link" href="#">History</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

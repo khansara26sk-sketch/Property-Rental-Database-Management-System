@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Property Rental System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-badge">PR</div>
+        <div>
+          <h2>Property Rental</h2>
+          <p>Management Suite</p>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a class="nav-link active" href="dashboard.html"><span class="nav-icon">📊</span><span class="nav-text">Dashboard</span></a>
+        <a class="nav-link" href="owners.html"><span class="nav-icon">👤</span><span class="nav-text">Owners</span></a>
+        <a class="nav-link" href="properties.html"><span class="nav-icon">🏠</span><span class="nav-text">Properties</span></a>
+        <a class="nav-link" href="renters.html"><span class="nav-icon">🧾</span><span class="nav-text">Renters</span></a>
+        <a class="nav-link" href="agreements.html"><span class="nav-icon">📑</span><span class="nav-text">Agreements</span></a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <h4>Branch Performance</h4>
+        <p class="muted">North Branch recorded 18 active agreements this month.</p>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <div>
+          <h1 class="page-title">Dashboard Overview</h1>
+          <p class="page-subtitle">Track your branch operations, rental activity, and property performance in real time.</p>
+        </div>
+
+        <div class="topbar-actions">
+          <input class="search-box" type="text" placeholder="Search owners, renters, properties...">
+          <button class="btn btn-secondary">Export Report</button>
+          <button class="btn btn-primary">+ Add New Record</button>
+        </div>
+      </div>
+
+      <section class="grid stats-grid">
+        <article class="card stat-card">
+          <div class="stat-top">
+            <div>
+              <div class="stat-label">Total Owners</div>
+              <div class="stat-value">124</div>
+            </div>
+            <div class="stat-icon">👤</div>
+          </div>
+          <div class="muted">+12 from last month</div>
+        </article>
+
+        <article class="card stat-card">
+          <div class="stat-top">
+            <div>
+              <div class="stat-label">Listed Properties</div>
+              <div class="stat-value">268</div>
+            </div>
+            <div class="stat-icon">🏠</div>
+          </div>
+          <div class="muted">34 newly added this quarter</div>
+        </article>
+
+        <article class="card stat-card">
+          <div class="stat-top">
+            <div>
+              <div class="stat-label">Active Renters</div>
+              <div class="stat-value">193</div>
+            </div>
+            <div class="stat-icon">🧾</div>
+          </div>
+          <div class="muted">21 fresh inquiries this week</div>
+        </article>
+
+        <article class="card stat-card">
+          <div class="stat-top">
+            <div>
+              <div class="stat-label">Running Agreements</div>
+              <div class="stat-value">87</div>
+            </div>
+            <div class="stat-icon">📑</div>
+          </div>
+          <div class="muted">6 agreements ending soon</div>
+        </article>
+      </section>
+
+      <section class="layout-2">
+        <div class="panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Monthly Rental Activity</div>
+              <div class="page-subtitle">Overview of signed agreements</div>
+            </div>
+            <span class="badge">2026</span>
+          </div>
+
+          <div class="chart-bars">
+            <div class="bar-wrap"><div class="bar" style="height: 42%"></div><div class="bar-label">Jan</div></div>
+            <div class="bar-wrap"><div class="bar" style="height: 55%"></div><div class="bar-label">Feb</div></div>
+            <div class="bar-wrap"><div class="bar" style="height: 63%"></div><div class="bar-label">Mar</div></div>
+            <div class="bar-wrap"><div class="bar" style="height: 78%"></div><div class="bar-label">Apr</div></div>
+            <div class="bar-wrap"><div class="bar" style="height: 66%"></div><div class="bar-label">May</div></div>
+            <div class="bar-wrap"><div class="bar" style="height: 84%"></div><div class="bar-label">Jun</div></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Recent Activity</div>
+              <div class="page-subtitle">Latest branch and rental actions</div>
+            </div>
+            <span class="badge">Live</span>
+          </div>
+
+          <div class="activity-list">
+            <div class="activity-item">
+              <span class="activity-dot"></span>
+              <div>
+                <strong>New property registered</strong>
+                <p class="muted">Property P-204 assigned to South Branch and staff ST-18.</p>
+              </div>
+            </div>
+
+            <div class="activity-item">
+              <span class="activity-dot"></span>
+              <div>
+                <strong>Rental agreement signed</strong>
+                <p class="muted">Agreement RA-099 approved for renter RT-051.</p>
+              </div>
+            </div>
+
+            <div class="activity-item">
+              <span class="activity-dot"></span>
+              <div>
+                <strong>Viewing scheduled</strong>
+                <p class="muted">3 viewings scheduled this afternoon for commercial spaces.</p>
+              </div>
+            </div>
+
+            <div class="activity-item">
+              <span class="activity-dot"></span>
+              <div>
+                <strong>Advertisement published</strong>
+                <p class="muted">Property P-122 advertised in City Times on April 8.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

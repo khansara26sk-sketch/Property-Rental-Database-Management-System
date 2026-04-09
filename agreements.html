@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agreements | Property Rental System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-badge">PR</div>
+        <div><h2>Property Rental</h2><p>Management Suite</p></div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a class="nav-link" href="dashboard.html"><span class="nav-icon">📊</span><span class="nav-text">Dashboard</span></a>
+        <a class="nav-link" href="owners.html"><span class="nav-icon">👤</span><span class="nav-text">Owners</span></a>
+        <a class="nav-link" href="properties.html"><span class="nav-icon">🏠</span><span class="nav-text">Properties</span></a>
+        <a class="nav-link" href="renters.html"><span class="nav-icon">🧾</span><span class="nav-text">Renters</span></a>
+        <a class="nav-link active" href="agreements.html"><span class="nav-icon">📑</span><span class="nav-text">Agreements</span></a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <div class="topbar">
+        <div>
+          <h1 class="page-title">Rental Agreements</h1>
+          <p class="page-subtitle">Manage contract dates, linked renter and property records, and agreement status.</p>
+        </div>
+
+        <div class="topbar-actions">
+          <input class="search-box" type="text" placeholder="Search agreement by ID, renter or property">
+          <button class="btn btn-primary">+ Create Agreement</button>
+        </div>
+      </div>
+
+      <div class="content-grid">
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Create Agreement</div>
+              <div class="page-subtitle">Record signing date, start date, and end date</div>
+            </div>
+          </div>
+
+          <form>
+            <div class="form-grid">
+              <div class="form-group"><label>Rental Number</label><input class="input" type="text" placeholder="RA-1001"></div>
+              <div class="form-group"><label>Renter Number</label><input class="input" type="text" placeholder="RT-201"></div>
+              <div class="form-group"><label>Property Number</label><input class="input" type="text" placeholder="PR-101"></div>
+              <div class="form-group"><label>Signing Date</label><input class="input" type="date"></div>
+              <div class="form-group"><label>Start Date</label><input class="input" type="date"></div>
+              <div class="form-group"><label>End Date</label><input class="input" type="date"></div>
+            </div>
+
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit">Save Agreement</button>
+              <button class="btn btn-secondary" type="reset">Reset</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Agreement Records</div>
+              <div class="page-subtitle">Active, upcoming, and ended rental contracts</div>
+            </div>
+            <span class="badge">87 Active</span>
+          </div>
+
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Rental No.</th>
+                  <th>Renter</th>
+                  <th>Property</th>
+                  <th>Sign Date</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td>RA-1001</td>
+                  <td>RT-201</td>
+                  <td>PR-101</td>
+                  <td>2026-04-01</td>
+                  <td>2026-04-05</td>
+                  <td>2027-04-05</td>
+                  <td><span class="status-pill status-active">Active</span></td>
+                </tr>
+
+                <tr>
+                  <td>RA-1002</td>
+                  <td>RT-202</td>
+                  <td>PR-102</td>
+                  <td>2026-04-03</td>
+                  <td>2026-04-10</td>
+                  <td>2026-12-10</td>
+                  <td><span class="status-pill status-pending">Upcoming</span></td>
+                </tr>
+
+                <tr>
+                  <td>RA-1003</td>
+                  <td>RT-203</td>
+                  <td>PR-103</td>
+                  <td>2025-01-08</td>
+                  <td>2025-01-10</td>
+                  <td>2026-01-10</td>
+                  <td><span class="status-pill status-ended">Ended</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
