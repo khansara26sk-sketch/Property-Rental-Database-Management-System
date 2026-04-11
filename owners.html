@@ -40,7 +40,7 @@
 
     <nav class="sidebar-nav">
       <a class="nav-link" href="dashboard.html"><span class="nav-icon">📊</span><span class="nav-text">Dashboard</span></a>
-      <a class="nav-link" href="owners.html"><span class="nav-icon">👤</span><span class="nav-text">Owners</span></a>
+      <a class="nav-link active" href="owners.html"><span class="nav-icon">👤</span><span class="nav-text">Owners</span></a>
       <a class="nav-link" href="properties.html"><span class="nav-icon">🏠</span><span class="nav-text">Properties</span></a>
       <a class="nav-link" href="renters.html"><span class="nav-icon">🧾</span><span class="nav-text">Renters</span></a>
       <a class="nav-link" href="agreements.html"><span class="nav-icon">📑</span><span class="nav-text">Agreements</span></a>
@@ -66,11 +66,11 @@
       <div class="topbar">
         <div>
           <h1 class="page-title">Owner Management</h1>
-          <p class="page-subtitle">Store and manage residential and company owner information.</p>
+          <p class="page-subtitle">Store, search, edit, and manage owner records professionally.</p>
         </div>
         <div class="topbar-actions">
-          <input class="search-box" type="text" placeholder="Search owner by name, email or ID">
-          <button class="btn btn-primary">+ New Owner</button>
+          <input id="ownerSearch" class="search-box" type="text" placeholder="Search owner by name, email or phone" oninput="filterOwners()">
+          <button class="btn btn-primary" type="button" onclick="startAddMode()">+ New Owner</button>
         </div>
       </div>
 
@@ -78,28 +78,26 @@
         <section class="panel">
           <div class="panel-header">
             <div>
-              <div class="panel-title">Add Owner</div>
-              <div class="page-subtitle">Create owner profile with contact and address details</div>
+              <div class="panel-title" id="formTitle">Add Owner</div>
+              <div class="page-subtitle">Create owner profile with contact details</div>
             </div>
+            <span class="badge" id="modeBadge">Create Mode</span>
           </div>
 
-          <form>
+          <form onsubmit="event.preventDefault(); saveOwner();">
+            <input type="hidden" id="owner_id">
             <div class="form-grid">
               <div class="form-group">
-                <label>Owner Number</label>
-                <input class="input" type="text" placeholder="OWN-001">
-              </div>
-              <div class="form-group">
                 <label>Owner Name</label>
-                <input class="input" type="text" placeholder="Enter full name">
+                <input id="name" class="input" type="text" placeholder="Enter full name" required>
               </div>
               <div class="form-group">
                 <label>Email Address</label>
-                <input class="input" type="email" placeholder="owner@email.com">
+                <input id="email" class="input" type="email" placeholder="owner@email.com" required>
               </div>
               <div class="form-group">
                 <label>Phone Number</label>
-                <input class="input" type="text" placeholder="+91 XXXXX XXXXX">
+                <input id="phone" class="input" type="text" placeholder="+91 XXXXX XXXXX" required>
               </div>
               <div class="form-group">
                 <label>Owner Type</label>
@@ -108,31 +106,12 @@
                   <option>Company Owner</option>
                 </select>
               </div>
-              <div class="form-group">
-                <label>Business Type</label>
-                <input class="input" type="text" placeholder="Only if company owner">
-              </div>
-              <div class="form-group">
-                <label>Street Number</label>
-                <input class="input" type="text" placeholder="22A">
-              </div>
-              <div class="form-group">
-                <label>Street Name</label>
-                <input class="input" type="text" placeholder="Park Avenue">
-              </div>
-              <div class="form-group">
-                <label>City</label>
-                <input class="input" type="text" placeholder="Jaipur">
-              </div>
-              <div class="form-group">
-                <label>Province</label>
-                <input class="input" type="text" placeholder="Rajasthan">
-              </div>
             </div>
             <div class="form-actions">
-              <button class="btn btn-primary" type="submit">Save Owner</button>
-              <button class="btn btn-secondary" type="reset">Clear Form</button>
+              <button class="btn btn-primary" type="submit" id="saveBtn">Save Owner</button>
+              <button class="btn btn-secondary" type="button" onclick="resetOwnerForm()">Clear Form</button>
             </div>
+            <p id="ownerMessage" class="muted" style="margin-top:12px;"></p>
           </form>
         </section>
 
@@ -140,53 +119,23 @@
           <div class="panel-header">
             <div>
               <div class="panel-title">Owner Records</div>
-              <div class="page-subtitle">Recently added owners and their profile status</div>
+              <div class="page-subtitle">Live data loaded from your backend API</div>
             </div>
-            <span class="badge">124 Total</span>
+            <span class="badge" id="ownerCountBadge">0 Records</span>
           </div>
 
           <div class="table-wrap">
             <table class="table">
               <thead>
                 <tr>
-                  <th>Owner No.</th>
+                  <th>ID</th>
                   <th>Name</th>
-                  <th>Type</th>
                   <th>Email</th>
                   <th>Phone</th>
-                  <th>City</th>
-                  <th>Actions</th>
+                  <th>Action</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>OWN-001</td>
-                  <td>Rohan Mehta</td>
-                  <td><span class="status-pill status-active">Private</span></td>
-                  <td>rohan@email.com</td>
-                  <td>9876543210</td>
-                  <td>Jaipur</td>
-                  <td class="actions"><a class="action-link" href="#">Edit</a><a class="action-link" href="#">Delete</a></td>
-                </tr>
-                <tr>
-                  <td>OWN-002</td>
-                  <td>Urban Build Pvt. Ltd.</td>
-                  <td><span class="status-pill status-pending">Company</span></td>
-                  <td>contact@urbanbuild.com</td>
-                  <td>9123456780</td>
-                  <td>Delhi</td>
-                  <td class="actions"><a class="action-link" href="#">Edit</a><a class="action-link" href="#">Delete</a></td>
-                </tr>
-                <tr>
-                  <td>OWN-003</td>
-                  <td>Neha Kapoor</td>
-                  <td><span class="status-pill status-active">Private</span></td>
-                  <td>neha@gmail.com</td>
-                  <td>9988776655</td>
-                  <td>Mumbai</td>
-                  <td class="actions"><a class="action-link" href="#">Edit</a><a class="action-link" href="#">Delete</a></td>
-                </tr>
-              </tbody>
+              <tbody id="ownersTable"></tbody>
             </table>
           </div>
         </section>
@@ -204,6 +153,165 @@
       document.getElementById('mobileDrawer').classList.remove('open');
       document.getElementById('mobileOverlay').classList.remove('show');
     }
+  </script>
+
+  <script>
+    const API = "http://localhost:3000";
+    let ownersCache = [];
+
+    function setMessage(text) {
+      document.getElementById("ownerMessage").innerText = text;
+    }
+
+    function startAddMode() {
+      document.getElementById("formTitle").innerText = "Add Owner";
+      document.getElementById("modeBadge").innerText = "Create Mode";
+      document.getElementById("saveBtn").innerText = "Save Owner";
+      document.getElementById("owner_id").value = "";
+      setMessage("");
+      document.getElementById("name").focus();
+    }
+
+    function resetOwnerForm() {
+      document.getElementById("owner_id").value = "";
+      document.getElementById("name").value = "";
+      document.getElementById("email").value = "";
+      document.getElementById("phone").value = "";
+      startAddMode();
+    }
+
+    function fillOwnerForm(owner) {
+      document.getElementById("owner_id").value = owner.owner_id;
+      document.getElementById("name").value = owner.name || "";
+      document.getElementById("email").value = owner.email || "";
+      document.getElementById("phone").value = owner.phone || "";
+      document.getElementById("formTitle").innerText = "Edit Owner";
+      document.getElementById("modeBadge").innerText = "Edit Mode";
+      document.getElementById("saveBtn").innerText = "Update Owner";
+      setMessage(`Editing owner #${owner.owner_id}`);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function renderOwners(list) {
+      const table = document.getElementById("ownersTable");
+      const badge = document.getElementById("ownerCountBadge");
+      table.innerHTML = "";
+      badge.innerText = `${list.length} Record${list.length === 1 ? "" : "s"}`;
+
+      if (!Array.isArray(list) || list.length === 0) {
+        table.innerHTML = `
+          <tr>
+            <td colspan="5" class="muted">No owner records found.</td>
+          </tr>
+        `;
+        return;
+      }
+
+      list.forEach(owner => {
+        table.innerHTML += `
+          <tr>
+            <td>${owner.owner_id}</td>
+            <td>${owner.name}</td>
+            <td>${owner.email ?? ""}</td>
+            <td>${owner.phone ?? ""}</td>
+            <td class="actions">
+              <a class="action-link" href="#" onclick="editOwner(${owner.owner_id}); return false;">Edit</a>
+              <a class="action-link" href="#" onclick="deleteOwner(${owner.owner_id}); return false;">Delete</a>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    async function loadOwners() {
+      try {
+        const res = await fetch(API + "/owners");
+        const data = await res.json();
+        ownersCache = Array.isArray(data) ? data : [];
+        renderOwners(ownersCache);
+      } catch (error) {
+        console.error("Error loading owners:", error);
+        setMessage("Failed to load owners.");
+      }
+    }
+
+    function filterOwners() {
+      const value = document.getElementById("ownerSearch").value.toLowerCase().trim();
+      const filtered = ownersCache.filter(owner =>
+        (owner.name || "").toLowerCase().includes(value) ||
+        (owner.email || "").toLowerCase().includes(value) ||
+        (owner.phone || "").toLowerCase().includes(value)
+      );
+      renderOwners(filtered);
+    }
+
+    async function saveOwner() {
+      const id = document.getElementById("owner_id").value;
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+
+      if (!name || !email || !phone) {
+        setMessage("Please fill all required fields.");
+        return;
+      }
+
+      const payload = { name, email, phone };
+
+      try {
+        let res;
+        if (id) {
+          res = await fetch(API + "/owners/" + id, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+        } else {
+          res = await fetch(API + "/owners", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+        }
+
+        const data = await res.json();
+        if (!res.ok) {
+          setMessage(data.message || "Failed to save owner.");
+          return;
+        }
+
+        setMessage(id ? "Owner updated successfully." : "Owner added successfully.");
+        resetOwnerForm();
+        await loadOwners();
+      } catch (error) {
+        console.error("Error saving owner:", error);
+        setMessage("Something went wrong while saving owner.");
+      }
+    }
+
+    function editOwner(id) {
+      const owner = ownersCache.find(item => item.owner_id === id);
+      if (owner) fillOwnerForm(owner);
+    }
+
+    async function deleteOwner(id) {
+      if (!confirm("Delete this owner?")) return;
+      try {
+        const res = await fetch(API + "/owners/" + id, { method: "DELETE" });
+        if (!res.ok) {
+          setMessage("Failed to delete owner.");
+          return;
+        }
+        setMessage("Owner deleted successfully.");
+        await loadOwners();
+      } catch (error) {
+        console.error("Error deleting owner:", error);
+        setMessage("Something went wrong while deleting owner.");
+      }
+    }
+
+    loadOwners();
+    startAddMode();
   </script>
 </body>
 </html>

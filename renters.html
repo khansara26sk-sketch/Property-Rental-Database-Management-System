@@ -1,4 +1,3 @@
-<!-- =========================== renters.html =========================== -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,12 +10,53 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="mobile-topbar">
+    <div class="mobile-topbar-inner">
+      <div class="mobile-brand">
+        <div class="brand-badge">PR</div>
+        <div class="mobile-brand-text">
+          <strong>Property Rental</strong>
+          <span>Management Suite</span>
+        </div>
+      </div>
+      <button class="mobile-menu-btn" type="button" onclick="toggleMobileMenu()">☰</button>
+    </div>
+  </div>
+
+  <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
+
+  <aside class="mobile-drawer" id="mobileDrawer">
+    <div class="mobile-close-row">
+      <button class="mobile-close-btn" type="button" onclick="closeMobileMenu()">✕</button>
+    </div>
+    <div class="brand">
+      <div class="brand-badge">PR</div>
+      <div>
+        <h2>Property Rental</h2>
+        <p>Management Suite</p>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="nav-link" href="dashboard.html"><span class="nav-icon">📊</span><span class="nav-text">Dashboard</span></a>
+      <a class="nav-link" href="owners.html"><span class="nav-icon">👤</span><span class="nav-text">Owners</span></a>
+      <a class="nav-link" href="properties.html"><span class="nav-icon">🏠</span><span class="nav-text">Properties</span></a>
+      <a class="nav-link active" href="renters.html"><span class="nav-icon">🧾</span><span class="nav-text">Renters</span></a>
+      <a class="nav-link" href="agreements.html"><span class="nav-icon">📑</span><span class="nav-text">Agreements</span></a>
+    </nav>
+
+    <div style="margin-top:20px;">
+      <button class="btn btn-secondary" style="width:100%;" onclick="logoutUser()">Logout</button>
+    </div>
+  </aside>
+
   <div class="app-shell">
     <aside class="sidebar">
       <div class="brand">
         <div class="brand-badge">PR</div>
         <div><h2>Property Rental</h2><p>Management Suite</p></div>
       </div>
+
       <nav class="sidebar-nav">
         <a class="nav-link" href="dashboard.html"><span class="nav-icon">📊</span><span class="nav-text">Dashboard</span></a>
         <a class="nav-link" href="owners.html"><span class="nav-icon">👤</span><span class="nav-text">Owners</span></a>
@@ -24,17 +64,23 @@
         <a class="nav-link active" href="renters.html"><span class="nav-icon">🧾</span><span class="nav-text">Renters</span></a>
         <a class="nav-link" href="agreements.html"><span class="nav-icon">📑</span><span class="nav-text">Agreements</span></a>
       </nav>
+
+      <div class="sidebar-footer">
+        <h4>Quick Access</h4>
+        <p class="muted">Manage renter records with live backend integration.</p>
+        <button class="btn btn-secondary" style="width:100%; margin-top:12px;" onclick="logoutUser()">Logout</button>
+      </div>
     </aside>
 
     <main class="main">
       <div class="topbar">
         <div>
           <h1 class="page-title">Renter Management</h1>
-          <p class="page-subtitle">Maintain renter profiles, branch references, and contact details.</p>
+          <p class="page-subtitle">Maintain renter profiles with search, edit, and live backend integration.</p>
         </div>
         <div class="topbar-actions">
-          <input class="search-box" type="text" placeholder="Search renter by ID, name or email">
-          <button class="btn btn-primary">+ Add Renter</button>
+          <input id="renterSearch" class="search-box" type="text" placeholder="Search renter by name, email or phone" oninput="filterRenters()">
+          <button class="btn btn-primary" type="button" onclick="startAddMode()">+ Add Renter</button>
         </div>
       </div>
 
@@ -42,28 +88,46 @@
         <section class="panel">
           <div class="panel-header">
             <div>
-              <div class="panel-title">Add Renter</div>
-              <div class="page-subtitle">Create renter record for person or business</div>
+              <div class="panel-title" id="formTitle">Add Renter</div>
+              <div class="page-subtitle">Create a renter record and save it directly to your database</div>
             </div>
+            <span class="badge" id="modeBadge">Create Mode</span>
           </div>
 
-          <form>
+          <form onsubmit="event.preventDefault(); saveRenter();">
+            <input type="hidden" id="renter_id">
+
             <div class="form-grid">
-              <div class="form-group"><label>Renter Number</label><input class="input" type="text" placeholder="RT-201"></div>
-              <div class="form-group"><label>Renter Name</label><input class="input" type="text" placeholder="Enter renter name"></div>
-              <div class="form-group"><label>Renter Type</label><select class="select"><option>Private Person</option><option>Business</option></select></div>
-              <div class="form-group"><label>Branch Number</label><input class="input" type="text" placeholder="BR-01"></div>
-              <div class="form-group"><label>Email</label><input class="input" type="email" placeholder="renter@email.com"></div>
-              <div class="form-group"><label>Phone</label><input class="input" type="text" placeholder="+91 XXXXX XXXXX"></div>
-              <div class="form-group"><label>Street Number</label><input class="input" type="text" placeholder="17"></div>
-              <div class="form-group"><label>Street Name</label><input class="input" type="text" placeholder="Lake View Road"></div>
-              <div class="form-group"><label>City</label><input class="input" type="text" placeholder="Pune"></div>
-              <div class="form-group"><label>Province</label><input class="input" type="text" placeholder="Maharashtra"></div>
+              <div class="form-group">
+                <label>Renter Name</label>
+                <input id="renter_name" class="input" type="text" placeholder="Enter renter name" required>
+              </div>
+
+              <div class="form-group">
+                <label>Email</label>
+                <input id="renter_email" class="input" type="email" placeholder="renter@email.com" required>
+              </div>
+
+              <div class="form-group">
+                <label>Phone</label>
+                <input id="renter_phone" class="input" type="text" placeholder="+91 XXXXX XXXXX" required>
+              </div>
+
+              <div class="form-group">
+                <label>Renter Type</label>
+                <select class="select">
+                  <option>Private Person</option>
+                  <option>Business</option>
+                </select>
+              </div>
             </div>
+
             <div class="form-actions">
-              <button class="btn btn-primary" type="submit">Save Renter</button>
-              <button class="btn btn-secondary" type="reset">Clear</button>
+              <button class="btn btn-primary" id="saveRenterBtn" type="submit">Save Renter</button>
+              <button class="btn btn-secondary" type="button" onclick="resetRenterForm()">Clear</button>
             </div>
+
+            <p id="renterMessage" class="muted" style="margin-top:12px;"></p>
           </form>
         </section>
 
@@ -71,58 +135,223 @@
           <div class="panel-header">
             <div>
               <div class="panel-title">Renter Records</div>
-              <div class="page-subtitle">Current renters and inquiry holders</div>
+              <div class="page-subtitle">Live renter data loaded from your backend API</div>
             </div>
-            <span class="badge">193 Renters</span>
+            <span class="badge" id="renterCountBadge">0 Records</span>
           </div>
 
           <div class="table-wrap">
             <table class="table">
               <thead>
                 <tr>
-                  <th>Renter No.</th>
+                  <th>ID</th>
                   <th>Name</th>
-                  <th>Type</th>
                   <th>Email</th>
                   <th>Phone</th>
-                  <th>Branch</th>
-                  <th>Actions</th>
+                  <th>Action</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>RT-201</td>
-                  <td>Aman Verma</td>
-                  <td><span class="status-pill status-active">Private</span></td>
-                  <td>aman@gmail.com</td>
-                  <td>9001112233</td>
-                  <td>BR-01</td>
-                  <td class="actions"><a class="action-link" href="#">Edit</a><a class="action-link" href="#">History</a></td>
-                </tr>
-                <tr>
-                  <td>RT-202</td>
-                  <td>Bright Tech Solutions</td>
-                  <td><span class="status-pill status-pending">Business</span></td>
-                  <td>admin@brighttech.com</td>
-                  <td>8899776655</td>
-                  <td>BR-03</td>
-                  <td class="actions"><a class="action-link" href="#">Edit</a><a class="action-link" href="#">History</a></td>
-                </tr>
-                <tr>
-                  <td>RT-203</td>
-                  <td>Sana Khan</td>
-                  <td><span class="status-pill status-active">Private</span></td>
-                  <td>sana@email.com</td>
-                  <td>9871002300</td>
-                  <td>BR-02</td>
-                  <td class="actions"><a class="action-link" href="#">Edit</a><a class="action-link" href="#">History</a></td>
-                </tr>
-              </tbody>
+              <tbody id="rentersTable"></tbody>
             </table>
           </div>
         </section>
       </div>
     </main>
   </div>
+
+  <script>
+    const user = localStorage.getItem("loggedInUser");
+    if (!user) {
+      alert("Please login first");
+      window.location.href = "login.html";
+    }
+
+    function logoutUser() {
+      localStorage.removeItem("loggedInUser");
+      window.location.href = "login.html";
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById("mobileDrawer").classList.toggle("open");
+      document.getElementById("mobileOverlay").classList.toggle("show");
+    }
+
+    function closeMobileMenu() {
+      document.getElementById("mobileDrawer").classList.remove("open");
+      document.getElementById("mobileOverlay").classList.remove("show");
+    }
+  </script>
+
+  <script>
+    const API = "http://localhost:3000";
+    let rentersCache = [];
+
+    function setMessage(text) {
+      document.getElementById("renterMessage").innerText = text;
+    }
+
+    function startAddMode() {
+      document.getElementById("formTitle").innerText = "Add Renter";
+      document.getElementById("modeBadge").innerText = "Create Mode";
+      document.getElementById("saveRenterBtn").innerText = "Save Renter";
+      document.getElementById("renter_id").value = "";
+      setMessage("");
+      document.getElementById("renter_name").focus();
+    }
+
+    function resetRenterForm() {
+      document.getElementById("renter_id").value = "";
+      document.getElementById("renter_name").value = "";
+      document.getElementById("renter_email").value = "";
+      document.getElementById("renter_phone").value = "";
+      startAddMode();
+    }
+
+    function fillRenterForm(renter) {
+      document.getElementById("renter_id").value = renter.renter_id;
+      document.getElementById("renter_name").value = renter.name || "";
+      document.getElementById("renter_email").value = renter.email || "";
+      document.getElementById("renter_phone").value = renter.phone || "";
+      document.getElementById("formTitle").innerText = "Edit Renter";
+      document.getElementById("modeBadge").innerText = "Edit Mode";
+      document.getElementById("saveRenterBtn").innerText = "Update Renter";
+      setMessage(`Editing renter #${renter.renter_id}`);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function renderRenters(list) {
+      const table = document.getElementById("rentersTable");
+      const badge = document.getElementById("renterCountBadge");
+      table.innerHTML = "";
+      badge.innerText = `${list.length} Record${list.length === 1 ? "" : "s"}`;
+
+      if (!Array.isArray(list) || list.length === 0) {
+        table.innerHTML = `
+          <tr>
+            <td colspan="5" class="muted">No renter records found.</td>
+          </tr>
+        `;
+        return;
+      }
+
+      list.forEach(renter => {
+        table.innerHTML += `
+          <tr>
+            <td>${renter.renter_id}</td>
+            <td>${renter.name}</td>
+            <td>${renter.email ?? ""}</td>
+            <td>${renter.phone ?? ""}</td>
+            <td class="actions">
+              <a class="action-link" href="#" onclick="editRenter(${renter.renter_id}); return false;">Edit</a>
+              <a class="action-link" href="#" onclick="deleteRenter(${renter.renter_id}); return false;">Delete</a>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    async function loadRenters() {
+      try {
+        const res = await fetch(API + "/renters");
+        const data = await res.json();
+        rentersCache = Array.isArray(data) ? data : [];
+        renderRenters(rentersCache);
+      } catch (error) {
+        console.error("Error loading renters:", error);
+        setMessage("Failed to load renters.");
+      }
+    }
+
+    function filterRenters() {
+      const value = document.getElementById("renterSearch").value.toLowerCase().trim();
+
+      const filtered = rentersCache.filter(renter =>
+        (renter.name || "").toLowerCase().includes(value) ||
+        (renter.email || "").toLowerCase().includes(value) ||
+        (renter.phone || "").toLowerCase().includes(value)
+      );
+
+      renderRenters(filtered);
+    }
+
+    async function saveRenter() {
+      const id = document.getElementById("renter_id").value;
+      const name = document.getElementById("renter_name").value.trim();
+      const email = document.getElementById("renter_email").value.trim();
+      const phone = document.getElementById("renter_phone").value.trim();
+
+      if (!name || !email || !phone) {
+        setMessage("Please fill all required fields.");
+        return;
+      }
+
+      const payload = { name, email, phone };
+
+      try {
+        let res;
+
+        if (id) {
+          res = await fetch(API + "/renters/" + id, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+          });
+        } else {
+          res = await fetch(API + "/renters", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+          });
+        }
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          setMessage(data.message || "Failed to save renter.");
+          return;
+        }
+
+        setMessage(id ? "Renter updated successfully." : "Renter added successfully.");
+        resetRenterForm();
+        await loadRenters();
+      } catch (error) {
+        console.error("Error saving renter:", error);
+        setMessage("Something went wrong while saving renter.");
+      }
+    }
+
+    function editRenter(id) {
+      const renter = rentersCache.find(item => item.renter_id === id);
+      if (renter) fillRenterForm(renter);
+    }
+
+    async function deleteRenter(id) {
+      if (!confirm("Delete this renter?")) return;
+
+      try {
+        const res = await fetch(API + "/renters/" + id, {
+          method: "DELETE"
+        });
+
+        if (!res.ok) {
+          setMessage("Failed to delete renter.");
+          return;
+        }
+
+        setMessage("Renter deleted successfully.");
+        await loadRenters();
+      } catch (error) {
+        console.error("Error deleting renter:", error);
+        setMessage("Something went wrong while deleting renter.");
+      }
+    }
+
+    loadRenters();
+    startAddMode();
+  </script>
 </body>
 </html>

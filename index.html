@@ -5,177 +5,82 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Property Rental System</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
-  <style>
-    body {
-      margin: 0;
-      font-family: Inter, sans-serif;
-      height: 100vh;
-      display: flex;
-      background: url("https://images.unsplash.com/photo-1560448204-e02f11c3d0e2") no-repeat center/cover;
-    }
-
-    /* DARK OVERLAY */
-    body::before {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.6);
-      z-index: 0;
-    }
-
-    .container {
-      display: flex;
-      width: 100%;
-      position: relative;
-      z-index: 1;
-    }
-
-    .left {
-      flex: 1;
-      padding: 80px;
-      color: white;
-    }
-
-    .left h1 {
-      font-size: 3.5rem;
-      margin-bottom: 20px;
-    }
-
-    .left p {
-      font-size: 1.2rem;
-      opacity: 0.8;
-    }
-
-    .right {
-      width: 420px;
-      margin: auto;
-      background: rgba(255,255,255,0.08);
-      backdrop-filter: blur(15px);
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-    }
-
-    .tabs {
-      display: flex;
-      margin-bottom: 20px;
-    }
-
-    .tabs button {
-      flex: 1;
-      padding: 12px;
-      border: none;
-      background: transparent;
-      color: white;
-      cursor: pointer;
-      font-weight: 600;
-      border-bottom: 2px solid transparent;
-    }
-
-    .tabs button.active {
-      border-bottom: 2px solid #ff6b6b;
-    }
-
-    input {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border-radius: 10px;
-      border: none;
-      outline: none;
-    }
-
-    button.submit {
-      width: 100%;
-      padding: 12px;
-      margin-top: 10px;
-      background: linear-gradient(135deg, #ff6b6b, #ff3d3d);
-      border: none;
-      border-radius: 10px;
-      color: white;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    button.submit:hover {
-      transform: scale(1.03);
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    @media(max-width: 900px) {
-      .left {
-        display: none;
-      }
-
-      .right {
-        width: 90%;
-      }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
-  <div class="container">
+  <section class="auth-page">
 
     <!-- LEFT SIDE -->
-    <div class="left">
-      <h1>Property Rental System</h1>
-      <p>Manage owners, properties, renters and agreements in one smart dashboard.</p>
+    <div class="auth-left">
+      <div>
+        <div class="auth-badge">🏢 Smart Rental Platform</div>
+
+        <h1 class="auth-title">
+          Manage Properties, Renters & Agreements Easily
+        </h1>
+
+        <p class="auth-copy">
+          A modern property rental management system to handle owners,
+          properties, renters, and agreements — all in one place.
+        </p>
+
+        <!-- IMAGE -->
+        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa" 
+             alt="Property"
+             style="width:100%; border-radius:20px; margin-top:20px; box-shadow:0 10px 30px rgba(0,0,0,0.3);">
+
+        <div class="auth-highlights">
+          <div class="highlight-card">
+            <div class="highlight-value">✔</div>
+            <div class="muted">Easy Management</div>
+          </div>
+
+          <div class="highlight-card">
+            <div class="highlight-value">⚡</div>
+            <div class="muted">Fast & Secure</div>
+          </div>
+
+          <div class="highlight-card">
+            <div class="highlight-value">📊</div>
+            <div class="muted">Live Dashboard</div>
+          </div>
+        </div>
+      </div>
+
+      <p class="muted">Property Rental System</p>
     </div>
 
     <!-- RIGHT SIDE -->
-    <div class="right">
+    <div class="auth-right">
+      <div class="panel auth-panel">
 
-      <div class="tabs">
-        <button class="active" onclick="showLogin()">Sign In</button>
-        <button onclick="showSignup()">Sign Up</button>
+        <h2>Welcome</h2>
+        <p>Choose an option to continue</p>
+
+        <div class="auth-form">
+
+          <button class="btn btn-primary"
+            onclick="window.location.href='login.html'">
+            Sign In
+          </button>
+
+          <button class="btn btn-secondary"
+            onclick="window.location.href='signup.html'">
+            Sign Up
+          </button>
+
+          <button class="btn btn-secondary"
+            onclick="window.location.href='dashboard.html'">
+            Skip (Demo)
+          </button>
+
+        </div>
+
       </div>
-
-      <!-- LOGIN -->
-      <div id="loginForm">
-        <input type="email" placeholder="Email">
-        <input type="password" placeholder="Password">
-        <button class="submit" onclick="goDashboard()">Sign In</button>
-      </div>
-
-      <!-- SIGNUP -->
-      <div id="signupForm" class="hidden">
-        <input type="text" placeholder="Full Name">
-        <input type="email" placeholder="Email">
-        <input type="password" placeholder="Password">
-        <button class="submit">Create Account</button>
-      </div>
-
     </div>
 
-  </div>
-
-  <script>
-    function showLogin() {
-      document.getElementById("loginForm").classList.remove("hidden");
-      document.getElementById("signupForm").classList.add("hidden");
-      document.querySelectorAll(".tabs button")[0].classList.add("active");
-      document.querySelectorAll(".tabs button")[1].classList.remove("active");
-    }
-
-    function showSignup() {
-      document.getElementById("signupForm").classList.remove("hidden");
-      document.getElementById("loginForm").classList.add("hidden");
-      document.querySelectorAll(".tabs button")[1].classList.add("active");
-      document.querySelectorAll(".tabs button")[0].classList.remove("active");
-    }
-
-    function goDashboard() {
-      window.location.href = "dashboard.html";
-    }
-  </script>
-
+  </section>
 </body>
 </html>

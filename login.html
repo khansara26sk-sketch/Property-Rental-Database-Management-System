@@ -1,13 +1,14 @@
-<!-- =========================== login.html =========================== -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login | Property Rental System</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,45 +16,57 @@
     <div class="auth-left">
       <div>
         <div class="auth-badge">🏢 Smart Rental Management Platform</div>
-        <h1 class="auth-title">Manage owners, properties, renters, and agreements in one elegant dashboard.</h1>
+
+        <h1 class="auth-title">
+          Manage owners, properties, renters, and agreements in one elegant dashboard.
+        </h1>
+
         <p class="auth-copy">
-          A modern property rental system for branches, staff, and rental operations. Track listings, contracts, viewings, branch performance, and property ownership from a single secure platform.
+          A modern property rental system for branches, staff, and rental operations.
+          Track listings, contracts, viewings, branch performance, and property ownership
+          from a single secure platform.
         </p>
 
         <div class="auth-highlights">
           <div class="highlight-card">
-            <div class="highlight-value">250+</div>
-            <div class="muted">Properties managed</div>
+            <div class="highlight-value" id="loginOwnersCount">0</div>
+            <div class="muted">Owners in database</div>
           </div>
+
           <div class="highlight-card">
-            <div class="highlight-value">1.2k</div>
-            <div class="muted">Renter records</div>
+            <div class="highlight-value" id="loginPropertiesCount">0</div>
+            <div class="muted">Properties listed</div>
           </div>
+
           <div class="highlight-card">
-            <div class="highlight-value">98%</div>
-            <div class="muted">Agreement tracking accuracy</div>
+            <div class="highlight-value" id="loginAgreementsCount">0</div>
+            <div class="muted">Active records tracked</div>
           </div>
         </div>
 
         <div class="card hero-card">
           <div class="panel-header">
             <div>
-              <div class="panel-title">Why this system?</div>
-              <div class="page-subtitle">Professional workflow for academic case study and real business style demo</div>
+              <div class="panel-title">Live Platform Snapshot</div>
+              <div class="page-subtitle">Real-time overview from your backend database</div>
             </div>
+            <div class="badge">Live</div>
           </div>
+
           <div class="hero-card-grid">
             <div class="hero-mini">
-              <strong>Owners</strong>
-              <span class="muted">Complete owner profile and address handling</span>
+              <strong id="loginRentersCount">0</strong>
+              <span class="muted">Registered renters</span>
             </div>
+
             <div class="hero-mini">
-              <strong>Properties</strong>
-              <span class="muted">Assign branch and staff oversight instantly</span>
+              <strong id="latestAgreementId">—</strong>
+              <span class="muted">Latest agreement ID</span>
             </div>
+
             <div class="hero-mini">
-              <strong>Agreements</strong>
-              <span class="muted">Track sign, start, end, and status dates</span>
+              <strong id="latestPropertyCity">—</strong>
+              <span class="muted">Latest property city</span>
             </div>
           </div>
         </div>
@@ -67,20 +80,20 @@
         <h2>Welcome Back</h2>
         <p>Sign in or create your account to access the rental management workspace.</p>
 
-        <form class="auth-form">
+        <form class="auth-form" onsubmit="event.preventDefault(); loginUser();">
           <div class="form-group">
             <label>Email address</label>
-            <input class="input" type="email" placeholder="admin@propertyhub.com">
+            <input id="login_email" class="input" type="email" placeholder="admin@propertyhub.com" required>
           </div>
 
           <div class="form-group">
             <label>Password</label>
-            <input class="input" type="password" placeholder="Enter password">
+            <input id="login_password" class="input" type="password" placeholder="Enter password" required>
           </div>
 
           <div class="form-group">
             <label>Role</label>
-            <select class="select">
+            <select id="login_role" class="select">
               <option>Administrator</option>
               <option>Branch Manager</option>
               <option>Staff Member</option>
@@ -92,15 +105,81 @@
               <input type="checkbox">
               Remember me
             </label>
-            <a class="action-link" href="#">Forgot password?</a>
+            <a class="action-link" href="forgot.html">Forgot password?</a>
           </div>
 
-          <button class="btn btn-primary" type="button" onclick="window.location.href='dashboard.html'">Sign In</button>
-          <button class="btn btn-secondary" type="button">Sign Up</button>
+          <p id="loginMessage" class="muted"></p>
+
+          <button class="btn btn-primary" type="submit">Sign In</button>
+
+          <button class="btn btn-secondary" type="button" onclick="window.location.href='signup.html'">
+            Sign Up
+          </button>
         </form>
       </div>
     </div>
   </section>
+
+  <script>
+    const API = "http://localhost:3000";
+
+    async function loadLoginStats() {
+      try {
+        const [owners, properties, renters, agreements] = await Promise.all([
+          fetch(API + "/owners").then(r => r.json()),
+          fetch(API + "/properties").then(r => r.json()),
+          fetch(API + "/renters").then(r => r.json()),
+          fetch(API + "/agreements").then(r => r.json())
+        ]);
+
+        document.getElementById("loginOwnersCount").innerText = Array.isArray(owners) ? owners.length : 0;
+        document.getElementById("loginPropertiesCount").innerText = Array.isArray(properties) ? properties.length : 0;
+        document.getElementById("loginRentersCount").innerText = Array.isArray(renters) ? renters.length : 0;
+        document.getElementById("loginAgreementsCount").innerText = Array.isArray(agreements) ? agreements.length : 0;
+
+        if (Array.isArray(agreements) && agreements.length > 0) {
+          document.getElementById("latestAgreementId").innerText = `#${agreements[0].agreement_id}`;
+        }
+
+        if (Array.isArray(properties) && properties.length > 0) {
+          document.getElementById("latestPropertyCity").innerText = properties[0].city || "—";
+        }
+      } catch (error) {
+        console.error("Error loading login stats:", error);
+      }
+    }
+
+    async function loginUser() {
+      const email = document.getElementById("login_email").value.trim();
+      const password = document.getElementById("login_password").value.trim();
+      const msg = document.getElementById("loginMessage");
+
+      msg.textContent = "";
+
+      try {
+        const res = await fetch(API + "/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          msg.textContent = data.message || "Login failed";
+          return;
+        }
+
+        localStorage.setItem("loggedInUser", JSON.stringify(data.user));
+        window.location.href = "dashboard.html";
+      } catch (error) {
+        msg.textContent = "Something went wrong.";
+      }
+    }
+
+    loadLoginStats();
+  </script>
 </body>
 </html>
-

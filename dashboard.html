@@ -1,52 +1,13 @@
-<!-- =========================== dashboard.html =========================== -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard | Property Rental System</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="mobile-topbar">
-    <div class="mobile-topbar-inner">
-      <div class="mobile-brand">
-        <div class="brand-badge">PR</div>
-        <div class="mobile-brand-text">
-          <strong>Property Rental</strong>
-          <span>Management Suite</span>
-        </div>
-      </div>
-      <button class="mobile-menu-btn" type="button" onclick="toggleMobileMenu()">☰</button>
-    </div>
-  </div>
-
-  <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenu()"></div>
-
-  <aside class="mobile-drawer" id="mobileDrawer">
-    <div class="mobile-close-row">
-      <button class="mobile-close-btn" type="button" onclick="closeMobileMenu()">✕</button>
-    </div>
-    <div class="brand">
-      <div class="brand-badge">PR</div>
-      <div>
-        <h2>Property Rental</h2>
-        <p>Management Suite</p>
-      </div>
-    </div>
-
-    <nav class="sidebar-nav">
-      <a class="nav-link" href="dashboard.html"><span class="nav-icon">📊</span><span class="nav-text">Dashboard</span></a>
-      <a class="nav-link" href="owners.html"><span class="nav-icon">👤</span><span class="nav-text">Owners</span></a>
-      <a class="nav-link" href="properties.html"><span class="nav-icon">🏠</span><span class="nav-text">Properties</span></a>
-      <a class="nav-link" href="renters.html"><span class="nav-icon">🧾</span><span class="nav-text">Renters</span></a>
-      <a class="nav-link" href="agreements.html"><span class="nav-icon">📑</span><span class="nav-text">Agreements</span></a>
-    </nav>
-  </aside>
-
   <div class="app-shell">
     <aside class="sidebar">
       <div class="brand">
@@ -66,8 +27,9 @@
       </nav>
 
       <div class="sidebar-footer">
-        <h4>Branch Performance</h4>
-        <p class="muted">North Branch recorded 18 active agreements this month.</p>
+        <h4>Session</h4>
+        <p class="muted">Secure access enabled for authenticated users.</p>
+        <button class="btn btn-secondary" style="width:100%; margin-top:12px;" onclick="logoutUser()">Logout</button>
       </div>
     </aside>
 
@@ -75,135 +37,247 @@
       <div class="topbar">
         <div>
           <h1 class="page-title">Dashboard Overview</h1>
-          <p class="page-subtitle">Track your branch operations, rental activity, and property performance in real time.</p>
+          <p class="page-subtitle" id="welcomeUser">Welcome</p>
         </div>
+
         <div class="topbar-actions">
-          <input class="search-box" type="text" placeholder="Search owners, renters, properties...">
-          <button class="btn btn-secondary">Export Report</button>
-          <button class="btn btn-primary">+ Add New Record</button>
+          <button class="btn btn-secondary" onclick="window.location.href='owners.html'">+ Owner</button>
+          <button class="btn btn-secondary" onclick="window.location.href='properties.html'">+ Property</button>
+          <button class="btn btn-secondary" onclick="window.location.href='renters.html'">+ Renter</button>
+          <button class="btn btn-primary" onclick="window.location.href='agreements.html'">+ Agreement</button>
         </div>
       </div>
 
+      <!-- HERO PANEL -->
+      <section class="panel" style="margin-bottom: 24px;">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Live Business Snapshot</div>
+            <div class="page-subtitle">Overview of your property rental records from the connected database</div>
+          </div>
+          <span class="badge">Live Data</span>
+        </div>
+
+        <div class="hero-card-grid">
+          <div class="hero-mini">
+            <strong id="latestAgreement">—</strong>
+            <span class="muted">Latest agreement</span>
+          </div>
+          <div class="hero-mini">
+            <strong id="latestProperty">—</strong>
+            <span class="muted">Latest property city</span>
+          </div>
+          <div class="hero-mini">
+            <strong id="latestRenter">—</strong>
+            <span class="muted">Most recent renter</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- STATS -->
       <section class="grid stats-grid">
         <article class="card stat-card">
           <div class="stat-top">
             <div>
               <div class="stat-label">Total Owners</div>
-              <div class="stat-value">124</div>
+              <div class="stat-value" id="ownersCount">0</div>
             </div>
             <div class="stat-icon">👤</div>
           </div>
-          <div class="muted">+12 from last month</div>
+          <div class="muted">All registered property owners</div>
         </article>
 
         <article class="card stat-card">
           <div class="stat-top">
             <div>
-              <div class="stat-label">Listed Properties</div>
-              <div class="stat-value">268</div>
+              <div class="stat-label">Properties</div>
+              <div class="stat-value" id="propertiesCount">0</div>
             </div>
             <div class="stat-icon">🏠</div>
           </div>
-          <div class="muted">34 newly added this quarter</div>
+          <div class="muted">Total listed rental properties</div>
         </article>
 
         <article class="card stat-card">
           <div class="stat-top">
             <div>
-              <div class="stat-label">Active Renters</div>
-              <div class="stat-value">193</div>
+              <div class="stat-label">Renters</div>
+              <div class="stat-value" id="rentersCount">0</div>
             </div>
             <div class="stat-icon">🧾</div>
           </div>
-          <div class="muted">21 fresh inquiries this week</div>
+          <div class="muted">Registered renters in the system</div>
         </article>
 
         <article class="card stat-card">
           <div class="stat-top">
             <div>
-              <div class="stat-label">Running Agreements</div>
-              <div class="stat-value">87</div>
+              <div class="stat-label">Agreements</div>
+              <div class="stat-value" id="agreementsCount">0</div>
             </div>
             <div class="stat-icon">📑</div>
           </div>
-          <div class="muted">6 agreements ending soon</div>
+          <div class="muted">Total rental agreements recorded</div>
         </article>
       </section>
 
       <section class="layout-2">
+        <!-- CHART -->
         <div class="panel">
           <div class="panel-header">
             <div>
-              <div class="panel-title">Monthly Rental Activity</div>
-              <div class="page-subtitle">Overview of signed agreements</div>
+              <div class="panel-title">Data Overview</div>
+              <div class="page-subtitle">Comparison of key records in the system</div>
             </div>
-            <span class="badge">2026</span>
+            <span class="badge">Chart</span>
           </div>
 
-          <div class="chart-bars">
-            <div class="bar-wrap"><div class="bar" style="height: 42%"></div><div class="bar-label">Jan</div></div>
-            <div class="bar-wrap"><div class="bar" style="height: 55%"></div><div class="bar-label">Feb</div></div>
-            <div class="bar-wrap"><div class="bar" style="height: 63%"></div><div class="bar-label">Mar</div></div>
-            <div class="bar-wrap"><div class="bar" style="height: 78%"></div><div class="bar-label">Apr</div></div>
-            <div class="bar-wrap"><div class="bar" style="height: 66%"></div><div class="bar-label">May</div></div>
-            <div class="bar-wrap"><div class="bar" style="height: 84%"></div><div class="bar-label">Jun</div></div>
-          </div>
+          <canvas id="chart"></canvas>
         </div>
 
+        <!-- RECENT ACTIVITY -->
         <div class="panel">
           <div class="panel-header">
             <div>
               <div class="panel-title">Recent Activity</div>
-              <div class="page-subtitle">Latest branch and rental actions</div>
+              <div class="page-subtitle">Latest agreements stored in database</div>
             </div>
-            <span class="badge">Live</span>
+            <span class="badge">Latest 5</span>
           </div>
 
-          <div class="activity-list">
-            <div class="activity-item">
-              <span class="activity-dot"></span>
-              <div>
-                <strong>New property registered</strong>
-                <p class="muted">Property P-204 assigned to South Branch and staff ST-18.</p>
-              </div>
-            </div>
-            <div class="activity-item">
-              <span class="activity-dot"></span>
-              <div>
-                <strong>Rental agreement signed</strong>
-                <p class="muted">Agreement RA-099 approved for renter RT-051.</p>
-              </div>
-            </div>
-            <div class="activity-item">
-              <span class="activity-dot"></span>
-              <div>
-                <strong>Viewing scheduled</strong>
-                <p class="muted">3 viewings scheduled this afternoon for commercial spaces.</p>
-              </div>
-            </div>
-            <div class="activity-item">
-              <span class="activity-dot"></span>
-              <div>
-                <strong>Advertisement published</strong>
-                <p class="muted">Property P-122 advertised in City Times on April 8.</p>
-              </div>
-            </div>
-          </div>
+          <div class="activity-list" id="activityList"></div>
         </div>
       </section>
     </main>
   </div>
 
-  <script>
-    function toggleMobileMenu() {
-      document.getElementById('mobileDrawer').classList.toggle('open');
-      document.getElementById('mobileOverlay').classList.toggle('show');
-    }
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const API = "http://localhost:3000";
 
-    function closeMobileMenu() {
-      document.getElementById('mobileDrawer').classList.remove('open');
-      document.getElementById('mobileOverlay').classList.remove('show');
+  // 🔐 LOGIN CHECK
+  const user = localStorage.getItem("loggedInUser");
+
+  if (!user) {
+    alert("Please login first");
+    window.location.href = "login.html";
+  }
+
+  let loggedInUser = null;
+
+  try {
+    loggedInUser = JSON.parse(user);
+    document.getElementById("welcomeUser").innerText =
+      `Welcome, ${loggedInUser.name} (${loggedInUser.role})`;
+  } catch {
+    localStorage.removeItem("loggedInUser");
+    window.location.href = "login.html";
+  }
+
+  let dashboardChart = null;
+
+  function animateCount(id, endValue) {
+    let start = 0;
+    const el = document.getElementById(id);
+
+    const interval = setInterval(() => {
+      start++;
+      el.innerText = start;
+
+      if (start >= endValue) {
+        el.innerText = endValue;
+        clearInterval(interval);
+      }
+    }, 20);
+  }
+
+  async function loadDashboard() {
+    try {
+      const owners = await fetch(API + "/owners").then(r => r.json());
+      const properties = await fetch(API + "/properties").then(r => r.json());
+      const renters = await fetch(API + "/renters").then(r => r.json());
+      const agreements = await fetch(API + "/agreements").then(r => r.json());
+
+      // COUNTS
+      animateCount("ownersCount", owners.length);
+      animateCount("propertiesCount", properties.length);
+      animateCount("rentersCount", renters.length);
+      animateCount("agreementsCount", agreements.length);
+
+      // ✅ FIX: latest item (use first, because sorted DESC)
+      document.getElementById("latestAgreement").innerText =
+        agreements.length ? `#${agreements[0].agreement_id}` : "—";
+
+      document.getElementById("latestProperty").innerText =
+        properties.length ? (properties[0].city || "—") : "—";
+
+      document.getElementById("latestRenter").innerText =
+        renters.length ? (renters[0].name || "—") : "—";
+
+      // CHART
+      if (dashboardChart) dashboardChart.destroy();
+
+      dashboardChart = new Chart(document.getElementById("chart"), {
+        type: "bar",
+        data: {
+          labels: ["Owners", "Properties", "Renters", "Agreements"],
+          datasets: [{
+            label: "Total Records",
+            data: [
+              owners.length,
+              properties.length,
+              renters.length,
+              agreements.length
+            ],
+            borderRadius: 10
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: { precision: 0 }
+            }
+          }
+        }
+      });
+
+      // ACTIVITY
+      const list = document.getElementById("activityList");
+      list.innerHTML = "";
+
+      if (agreements.length === 0) {
+        list.innerHTML = `<p class="muted">No recent activity</p>`;
+      } else {
+        agreements.slice(0, 5).forEach(a => {
+          list.innerHTML += `
+            <div class="activity-item">
+              <span class="activity-dot"></span>
+              <div>
+                <strong>Agreement #${a.agreement_id}</strong>
+                <p class="muted">
+                  Renter: ${a.renter_name || "N/A"} • Property: ${a.property_type || "N/A"}
+                </p>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+    } catch (err) {
+      console.error(err);
+      document.getElementById("activityList").innerHTML =
+        "<p class='muted'>Failed to load data</p>";
     }
-  </script>
+  }
+
+  function logoutUser() {
+    localStorage.removeItem("loggedInUser");
+    window.location.href = "login.html";
+  }
+
+  loadDashboard();
+</script>
 </body>
 </html>

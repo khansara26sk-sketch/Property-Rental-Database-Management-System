@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forgot Password | Property Rental System</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section class="auth-page">
+    <div class="auth-left">
+      <div>
+        <div class="auth-badge">🔐 Account Recovery</div>
+
+        <h1 class="auth-title">
+          Reset your password and get back to your rental workspace.
+        </h1>
+
+        <p class="auth-copy">
+          Enter your registered email address to reset your password.
+          This demo version will set a default password for quick project testing.
+        </p>
+
+        <div class="auth-highlights">
+          <div class="highlight-card">
+            <div class="highlight-value">🛡</div>
+            <div class="muted">Secure Access</div>
+          </div>
+
+          <div class="highlight-card">
+            <div class="highlight-value">⚡</div>
+            <div class="muted">Fast Recovery</div>
+          </div>
+
+          <div class="highlight-card">
+            <div class="highlight-value">📩</div>
+            <div class="muted">Email Based</div>
+          </div>
+        </div>
+
+        <div class="card hero-card">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Reset Flow</div>
+              <div class="page-subtitle">Simple project-friendly password recovery</div>
+            </div>
+            <div class="badge">Demo</div>
+          </div>
+
+          <div class="hero-card-grid">
+            <div class="hero-mini">
+              <strong>Step 1</strong>
+              <span class="muted">Enter your registered email</span>
+            </div>
+            <div class="hero-mini">
+              <strong>Step 2</strong>
+              <span class="muted">System verifies user record</span>
+            </div>
+            <div class="hero-mini">
+              <strong>Step 3</strong>
+              <span class="muted">Password resets to default demo value</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="muted">Use your registered email to continue.</p>
+    </div>
+
+    <div class="auth-right">
+      <div class="panel auth-panel">
+        <h2>Forgot Password</h2>
+        <p>Reset your password using your email address.</p>
+
+        <form class="auth-form" onsubmit="event.preventDefault(); resetPassword();">
+          <div class="form-group">
+            <label>Email address</label>
+            <input id="reset_email" class="input" type="email" placeholder="Enter your registered email" required>
+          </div>
+
+          <p id="resetMessage" class="muted"></p>
+
+          <button class="btn btn-primary" type="submit">Reset Password</button>
+
+          <button class="btn btn-secondary" type="button" onclick="window.location.href='login.html'">
+            Back to Login
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const API = "http://localhost:3000";
+
+    async function resetPassword() {
+      const email = document.getElementById("reset_email").value.trim();
+      const msg = document.getElementById("resetMessage");
+
+      msg.textContent = "";
+
+      try {
+        const res = await fetch(API + "/auth/reset", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ email })
+        });
+
+        const data = await res.json();
+        msg.textContent = data.message || "Password reset request processed.";
+      } catch (error) {
+        msg.textContent = "Server connection failed.";
+      }
+    }
+  </script>
+</body>
+</html>
