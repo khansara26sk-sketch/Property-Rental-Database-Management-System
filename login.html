@@ -121,15 +121,15 @@
   </section>
 
   <script>
-    const API = "http://localhost:3000";
+    const API_BASE = "https://property-rental-backend-xhy2.onrender.com";
 
     async function loadLoginStats() {
       try {
         const [owners, properties, renters, agreements] = await Promise.all([
-          fetch(API + "/owners").then(r => r.json()),
-          fetch(API + "/properties").then(r => r.json()),
-          fetch(API + "/renters").then(r => r.json()),
-          fetch(API + "/agreements").then(r => r.json())
+          fetch(API_BASE + "/owners").then(r => r.json()),
+          fetch(API_BASE + "/properties").then(r => r.json()),
+          fetch(API_BASE + "/renters").then(r => r.json()),
+          fetch(API_BASE + "/agreements").then(r => r.json())
         ]);
 
         document.getElementById("loginOwnersCount").innerText = Array.isArray(owners) ? owners.length : 0;
@@ -157,7 +157,7 @@
       msg.textContent = "";
 
       try {
-        const res = await fetch(API + "/auth/login", {
+        const res = await fetch(API_BASE + "/auth/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"

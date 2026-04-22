@@ -156,7 +156,7 @@
   </script>
 
   <script>
-    const API = "http://localhost:3000";
+    const API_BASE = "https://property-rental-backend-xhy2.onrender.com";
     let ownersCache = [];
 
     function setMessage(text) {
@@ -225,7 +225,7 @@
 
     async function loadOwners() {
       try {
-        const res = await fetch(API + "/owners");
+        const res = await fetch(API_BASE + "/owners");
         const data = await res.json();
         ownersCache = Array.isArray(data) ? data : [];
         renderOwners(ownersCache);
@@ -261,13 +261,13 @@
       try {
         let res;
         if (id) {
-          res = await fetch(API + "/owners/" + id, {
+          res = await fetch(API_BASE + "/owners/" + id, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
           });
         } else {
-          res = await fetch(API + "/owners", {
+          res = await fetch(API_BASE + "/owners", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
@@ -297,7 +297,7 @@
     async function deleteOwner(id) {
       if (!confirm("Delete this owner?")) return;
       try {
-        const res = await fetch(API + "/owners/" + id, { method: "DELETE" });
+        const res = await fetch(API_BASE + "/owners/" + id, { method: "DELETE" });
         if (!res.ok) {
           setMessage("Failed to delete owner.");
           return;

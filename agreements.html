@@ -134,7 +134,7 @@
 </div>
 
 <script>
-const API = "http://localhost:3000";
+const API_BASE = "https://property-rental-backend-xhy2.onrender.com";
 
 // LOGIN PROTECTION
 const user = localStorage.getItem("loggedInUser");
@@ -153,8 +153,8 @@ let agreementsCache = [];
 
 // LOAD DROPDOWNS
 async function loadDropdowns() {
-  const renters = await fetch(API+"/renters").then(r=>r.json());
-  const properties = await fetch(API+"/properties").then(r=>r.json());
+  const renters = await fetch(API_BASE+"/renters").then(r=>r.json());
+  const properties = await fetch(API_BASE+"/properties").then(r=>r.json());
 
   const renterSelect = document.getElementById("renter_id");
   renterSelect.innerHTML = "<option value=''>Select Renter</option>";
@@ -173,7 +173,7 @@ async function loadDropdowns() {
 
 // LOAD DATA
 async function loadAgreements() {
-  const data = await fetch(API+"/agreements").then(r=>r.json());
+  const data = await fetch(API_BASE+"/agreements").then(r=>r.json());
   agreementsCache = data;
   render(data);
 }
@@ -249,13 +249,13 @@ async function saveAgreement() {
   let res;
 
   if (id) {
-    res = await fetch(API+"/agreements/"+id, {
+    res = await fetch(API_BASE+"/agreements/"+id, {
       method:"PUT",
       headers:{ "Content-Type":"application/json" },
       body: JSON.stringify(data)
     });
   } else {
-    res = await fetch(API+"/agreements", {
+    res = await fetch(API_BASE+"/agreements", {
       method:"POST",
       headers:{ "Content-Type":"application/json" },
       body: JSON.stringify(data)
@@ -273,7 +273,7 @@ async function saveAgreement() {
 async function remove(id) {
   if (!confirm("Delete this agreement?")) return;
 
-  await fetch(API+"/agreements/"+id, { method:"DELETE" });
+  await fetch(API_BASE+"/agreements/"+id, { method:"DELETE" });
   loadAgreements();
 }
 

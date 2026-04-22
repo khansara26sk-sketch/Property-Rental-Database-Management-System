@@ -153,7 +153,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  const API = "http://localhost:3000";
+  const API_BASE = "https://property-rental-backend-xhy2.onrender.com";
 
   // 🔐 LOGIN CHECK
   const user = localStorage.getItem("loggedInUser");
@@ -193,10 +193,10 @@
 
   async function loadDashboard() {
     try {
-      const owners = await fetch(API + "/owners").then(r => r.json());
-      const properties = await fetch(API + "/properties").then(r => r.json());
-      const renters = await fetch(API + "/renters").then(r => r.json());
-      const agreements = await fetch(API + "/agreements").then(r => r.json());
+      const owners = await fetch(API_BASE + "/owners").then(r => r.json());
+      const properties = await fetch(API_BASE + "/properties").then(r => r.json());
+      const renters = await fetch(API_BASE + "/renters").then(r => r.json());
+      const agreements = await fetch(API_BASE + "/agreements").then(r => r.json());
 
       // COUNTS
       animateCount("ownersCount", owners.length);

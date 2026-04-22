@@ -180,7 +180,7 @@
   </script>
 
   <script>
-    const API = "http://localhost:3000";
+    const API_BASE = "https://property-rental-backend-xhy2.onrender.com";
     let propertiesCache = [];
     let ownersCache = [];
 
@@ -219,7 +219,7 @@
 
     async function loadOwnersDropdown() {
       try {
-        const res = await fetch(API + "/owners");
+        const res = await fetch(API_BASE + "/owners");
         const owners = await res.json();
         ownersCache = Array.isArray(owners) ? owners : [];
 
@@ -268,7 +268,7 @@
 
     async function loadProperties() {
       try {
-        const res = await fetch(API + "/properties");
+        const res = await fetch(API_BASE + "/properties");
         const data = await res.json();
         propertiesCache = Array.isArray(data) ? data : [];
         renderProperties(propertiesCache);
@@ -307,7 +307,7 @@
         let res;
 
         if (id) {
-          res = await fetch(API + "/properties/" + id, {
+          res = await fetch(API_BASE + "/properties/" + id, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json"
@@ -315,7 +315,7 @@
             body: JSON.stringify(payload)
           });
         } else {
-          res = await fetch(API + "/properties", {
+          res = await fetch(API_BASE + "/properties", {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
@@ -350,7 +350,7 @@
       if (!confirm("Delete this property?")) return;
 
       try {
-        const res = await fetch(API + "/properties/" + id, {
+        const res = await fetch(API_BASE + "/properties/" + id, {
           method: "DELETE"
         });
 

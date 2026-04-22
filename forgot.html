@@ -96,7 +96,7 @@
   </section>
 
   <script>
-    const API = "http://localhost:3000";
+    const API_BASE = "https://property-rental-backend-xhy2.onrender.com";
 
     async function resetPassword() {
       const email = document.getElementById("reset_email").value.trim();
@@ -105,7 +105,7 @@
       msg.textContent = "";
 
       try {
-        const res = await fetch(API + "/auth/reset", {
+        const res = await fetch(API_BASE + "/auth/reset", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"

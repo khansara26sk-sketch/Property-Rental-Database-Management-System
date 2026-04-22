@@ -183,7 +183,7 @@
   </script>
 
   <script>
-    const API = "http://localhost:3000";
+    const API_BASE = "https://property-rental-backend-xhy2.onrender.com";
     let rentersCache = [];
 
     function setMessage(text) {
@@ -252,7 +252,7 @@
 
     async function loadRenters() {
       try {
-        const res = await fetch(API + "/renters");
+        const res = await fetch(API_BASE + "/renters");
         const data = await res.json();
         rentersCache = Array.isArray(data) ? data : [];
         renderRenters(rentersCache);
@@ -291,7 +291,7 @@
         let res;
 
         if (id) {
-          res = await fetch(API + "/renters/" + id, {
+          res = await fetch(API_BASE + "/renters/" + id, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json"
@@ -299,7 +299,7 @@
             body: JSON.stringify(payload)
           });
         } else {
-          res = await fetch(API + "/renters", {
+          res = await fetch(API_BASE + "/renters", {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
@@ -333,7 +333,7 @@
       if (!confirm("Delete this renter?")) return;
 
       try {
-        const res = await fetch(API + "/renters/" + id, {
+        const res = await fetch(API_BASE + "/renters/" + id, {
           method: "DELETE"
         });
 
